@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Remove HTML Table Selected Row</title>
+        <meta charset="windows-1252">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<style>
+			.container{
+				width: 900px;
+				margin: 0 auto;
+				background-color:#ffcccc;
+				min-height:800px;
+			}
+			.formbox{
+				margin:10px;
+			}
+			label{
+				width: 100px;
+				display: block;
+			}
+			input{
+				width:200px;
+				height:20px;
+			}
+			table{
+				border: 1px solid black;
+				margin:5px;
+			}
+		</style>
+	
+	</head>
+	<body>
+		<div class="container">
+		<div id="header">
+		<h1> Marksheet Updates </h1>
+		</div>		
+			<div class="formbox">
+				<label> Name </label> 
+				<input type="text" placeholder="Enter name" id="fname" name="fname" value="Sushmitha">
+			</div>
+			<div class="formbox">
+				<label> Subject </label> 
+				<input type="text" placeholder="Subject" id="sub" name="sub" value="AI">
+			</div>
+			<div class="formbox">
+				<label> Marks </label> 
+				<input type="text" placeholder="Marks" id="mark" name="mark" value="100">
+			</div>
+			<div class="formbox">
+				<label for="save"></label>
+				<button id="save"> Add </button>
+			</div>
+			<table id="tab">
+			<thead>
+				<tr>
+				<th>Name</th>
+				<th>Subject</th>
+				<th>Marks</th>
+				</tr>
+			</thead>
+		</table>
+		
+		<table id="deleted_data">
+			<thead>
+			<tr>
+				<th>Name</th>
+				<th>Subject</th>
+				<th>Marks</th>
+			</tr>
+			</thead>
+		</table>
+		
+		</div>	
+		<script>
+			var delBut;
+			var tab1= document.getElementById("tab");
+			var tab2= document.getElementById("deleted_data");
+			document.getElementById("save").addEventListener("click", function(){
+			
+					let fname= document.getElementById("fname").value;
+					let sub= document.getElementById("sub").value;
+					let mark= document.getElementById("mark").value;
+					
+					var tr= document.createElement("tr");
+					var td1= document.createElement("td");
+					td1.appendChild(document.createTextNode(fname));
+					var td2= document.createElement("td");
+					td2.appendChild(document.createTextNode(sub));
+					var td3= document.createElement("td");
+					td3.appendChild(document.createTextNode(mark));
+					
+					tr.appendChild(td1);
+					tr.appendChild(td2);
+					tr.appendChild(td3);
+					
+					
+					delBut = document.createElement('button');
+					delBut.innerText="DELETE";
+					tr.appendChild(delBut);
+					
+					delBut.addEventListener('click',function(){
+					
+					var tr1= document.createElement("tr");
+					var td1= document.createElement("td");
+					td1.appendChild(document.createTextNode(fname)); 
+					var td2= document.createElement("td");			 
+					td2.appendChild(document.createTextNode(sub));	 
+					var td3= document.createElement("td");
+					td3.appendChild(document.createTextNode(mark));	
+					
+					/*
+						fname, sub, mark are giving respective values because they are respectively being 
+						stored when 'ADD' is called. i.e., each row has its own instances of those values
+						which are being called when THIS function is being executed
+						
+						fname, sub, mark : their values are being put into TD when the row is created
+						Hence when we "delete" it, those values are being reflected!!!
+						
+					*/
+					
+					tr1.appendChild(td1);
+					tr1.appendChild(td2);
+					tr1.appendChild(td3);
+					
+					tab2.appendChild(tr1);
+					
+					tab1.deleteRow(this.parentElement.rowIndex);
+					
+					});
+					tab1.appendChild(tr);
+			});
+			
+		</script>
+	</body>
+		
+	</html>
